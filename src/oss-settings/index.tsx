@@ -137,7 +137,8 @@ const OSSSettings = (props: IProps) => {
 			try {
 				values.minio_oss_settings = JSON.parse(values.minio_oss_settings as unknown as string);
 			} catch {
-				values.minio_oss_settings = {};
+				message.error('MinIO 设置 JSON 格式错误，请检查语法（注意逗号和引号）');
+				return;
 			}
 		} else {
 			values.minio_oss_settings = {};
