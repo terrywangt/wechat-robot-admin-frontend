@@ -7492,19 +7492,21 @@
 		},
 		"dto.OSSProvider": {
 			"type": "string",
-			"enum": ["aliyun", "tencent_cloud", "volcengine", "cloudflare"],
+			"enum": ["aliyun", "tencent_cloud", "volcengine", "cloudflare", "minio"],
 			"x-enum-comments": {
 				"OSSProviderAliyun": "阿里云 OSS",
 				"OSSProviderCloudflare": "Cloudflare R2",
 				"OSSProviderTencentCloud": "腾讯云 COS",
-				"OSSProviderVolcengine": "火山引擎 TOS"
+				"OSSProviderVolcengine": "火山引擎 TOS",
+				"OSSProviderMinio": "MinIO"
 			},
-			"x-enum-descriptions": ["阿里云 OSS", "腾讯云 COS", "火山引擎 TOS", "Cloudflare R2"],
+			"x-enum-descriptions": ["阿里云 OSS", "腾讯云 COS", "火山引擎 TOS", "Cloudflare R2", "MinIO"],
 			"x-enum-varnames": [
 				"OSSProviderAliyun",
 				"OSSProviderTencentCloud",
 				"OSSProviderVolcengine",
-				"OSSProviderCloudflare"
+				"OSSProviderCloudflare",
+				"OSSProviderMinio"
 			]
 		},
 		"dto.OSSSettings": {
@@ -7542,6 +7544,11 @@
 					"type": "object",
 					"additionalProperties": {}
 				},
+				"minio_oss_settings": {
+					"type": "object",
+					"additionalProperties": {}
+				},
+
 				"created_at": {
 					"type": "integer"
 				},
@@ -7596,6 +7603,10 @@
 					"$ref": "#/definitions/dto.AutoUploadMode"
 				},
 				"cloudflare_r2_settings": {
+					"type": "object",
+					"additionalProperties": {}
+				},
+				"minio_oss_settings": {
 					"type": "object",
 					"additionalProperties": {}
 				},

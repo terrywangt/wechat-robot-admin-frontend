@@ -5,7 +5,7 @@ import type * as Api from '@/api/wechat-robot/wechat-robot';
 import { filterOption } from '@/common/filter-option';
 import type { AnyType } from '@/common/types';
 import ParamsGroup from '@/components/ParamsGroup';
-import { AliyunOSSConfig, CloudflareR2Config, TencentCloudOSSConfig, VolcengineTOSConfig } from '@/constant/oss';
+import { AliyunOSSConfig, CloudflareR2Config, MinioOSSConfig, TencentCloudOSSConfig, VolcengineTOSConfig } from '@/constant/oss';
 
 interface IProps {
 	robotId: number;
@@ -53,6 +53,13 @@ const OSSSettings = (props: IProps) => {
 					if (data.cloudflare_r2_settings) {
 						try {
 							(data as AnyType).cloudflare_r2_settings = JSON.stringify(data.cloudflare_r2_settings, null, 2);
+						} catch {
+							//
+						}
+					}
+					if (data.minio_oss_settings) {
+						try {
+							(data as AnyType).minio_oss_settings = JSON.stringify(data.minio_oss_settings, null, 2);
 						} catch {
 							//
 						}
@@ -125,6 +132,15 @@ const OSSSettings = (props: IProps) => {
 			}
 		} else {
 			values.cloudflare_r2_settings = {};
+		}
+		if (values.minio_oss_settings) {
+			try {
+				values.minio_oss_settings = JSON.parse(values.minio_oss_settings as unknown as string);
+			} catch {
+				values.minio_oss_settings = {};
+			}
+		} else {
+			values.minio_oss_settings = {};
 		}
 		onSave(values);
 	};
@@ -297,6 +313,7 @@ const OSSSettings = (props: IProps) => {
 									{ label: '腾讯云', value: 'tencent_cloud', text: '腾讯云 tencent_cloud' },
 									{ label: '火山云', value: 'volcengine', text: '火山云 volcengine' },
 									{ label: 'Cloudflare R2', value: 'cloudflare', text: 'Cloudflare R2 cloudflare' },
+									{ label: 'MinIO', value: 'minio', text: 'MinIO minio' },
 								]}
 							/>
 						</Form.Item>
@@ -361,6 +378,22 @@ const OSSSettings = (props: IProps) => {
 							<Input.TextArea
 								placeholder="请输入 Cloudflare R2 设置"
 								rows={8}
+								allowClear
+							/>
+						</Form.Item>
+						<Form.Item
+							name="minio_oss_settings"
+							label="MinIO 设置"
+							initialValue={JSON.stringify(MinioOSSConfig, null, 2)}
+							tooltip={
+								<>
+									<pre>{JSON.stringify(MinioOSSConfig, null, 2)}</pre>
+								</>
+							}
+						>
+							<Input.TextArea
+								placeholder="请输入 MinIO 设置"
+								rows={9}
 								allowClear
 							/>
 						</Form.Item>
