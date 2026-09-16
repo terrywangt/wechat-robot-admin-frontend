@@ -22,8 +22,12 @@ export const Init = () => {
 			case 200:
 				return response;
 			case 401:
-				window.location.href = `${UrlLogin}?login_method=${data.data?.login_method ?? 'scan'}&redirect=${encodeURIComponent(window.location.href)}`;
-				return;
+				// 未登录/过期 → 跳转登录页（已在登录页则不跳）
+				if (window.location.pathname !== UrlLogin && window.location.pathname !== UrlLogin + '/') {
+					window.location.href = `${UrlLogin}?login_method=${data.data?.login_method ?? 'scan'}&redirect=${encodeURIComponent(window.location.href)}`;
+				}
+				// 关键修复：必须 reject 而非 return undefined，否则调用方读 resp.data 会崩溃
+				return Promise.reject(errorWrapper(data));
 			default:
 				return Promise.reject(errorWrapper(data));
 		}
