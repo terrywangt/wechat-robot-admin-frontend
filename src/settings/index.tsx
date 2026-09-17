@@ -17,7 +17,7 @@ import {
 } from '@/utils';
 import AIDrawingSettingsEditor from './AIDrawingSettingsEditor';
 import TTSettingsEditor from './TTSettingsEditor';
-import { chatBaseURLTips, imageRecognitionModelTips, ObjectToString, onTTSEnabledChange } from './utils';
+import { chatBaseURLTips, imageRecognitionModelTips, mediaExtractKeywordsTips, mediaEvaluateKeywordsTips, mediaExtractFailTextTips, mediaRecognizeFailTextTips, mediaRecognizeEmptyTextTips, summaryMinMessagesTips, summaryTriggerKeywordsTips, summaryWindowHoursTips, ObjectToString, onTTSEnabledChange } from './utils';
 
 interface IProps {
 	robotId: number;
@@ -331,6 +331,51 @@ const GlobalSettings = (props: IProps) => {
 														options={AiModels}
 													/>
 												</Form.Item>
+												<Form.Item
+													name="media_extract_keywords"
+													label="提取表情/图片触发词"
+													tooltip={mediaExtractKeywordsTips}
+													>
+														<Select
+														mode="tags"
+														placeholder="输入关键词后回车添加，例如：提取、下载、保存、发给我"
+														style={{ width: '100%' }}
+														/>
+												</Form.Item>
+												<Form.Item
+													name="media_evaluate_keywords"
+													label="评价/识别图片触发词"
+													tooltip={mediaEvaluateKeywordsTips}
+													>
+														<Select
+														mode="tags"
+														placeholder="输入关键词后回车添加，例如：评价、识别、分析、这是什么"
+														style={{ width: '100%' }}
+														/>
+												</Form.Item>
+												<Form.Item
+													name="media_extract_fail_text"
+													label="提取失败提示语"
+													tooltip={mediaExtractFailTextTips}
+													>
+														<Input placeholder="留空使用默认提示语" />
+												</Form.Item>
+												<Form.Item
+													name="media_recognize_fail_text"
+													label="识别失败提示语"
+													tooltip={mediaRecognizeFailTextTips}
+													>
+														<Input placeholder="留空使用默认提示语" />
+												</Form.Item>
+												<Form.Item
+													name="media_recognize_empty_text"
+													label="识别结果为空提示语"
+													tooltip={mediaRecognizeEmptyTextTips}
+													>
+														<Input placeholder="留空使用默认提示语" />
+												</Form.Item>
+
+
 												<Form.Item
 													name="max_completion_tokens"
 													label="最大回复"
@@ -917,6 +962,41 @@ const GlobalSettings = (props: IProps) => {
 														]}
 													/>
 												</Form.Item>
+												<Form.Item
+													name="chat_room_summary_min_messages"
+													label="最小消息条数"
+													tooltip={summaryMinMessagesTips}
+													>
+														<InputNumber
+														placeholder="默认100"
+														style={{ width: '100%' }}
+														min={0}
+														/>
+												</Form.Item>
+												<Form.Item
+													name="chat_room_summary_trigger_keywords"
+													label="手动总结触发词"
+													tooltip={summaryTriggerKeywordsTips}
+													>
+														<Select
+														mode="tags"
+														placeholder="输入关键词后回车添加，例如：总结、总结一下、群总结"
+														style={{ width: '100%' }}
+														/>
+												</Form.Item>
+												<Form.Item
+													name="chat_room_summary_window_hours"
+													label="总结时间窗口(小时)"
+													tooltip={summaryWindowHoursTips}
+													>
+														<InputNumber
+														placeholder="默认24"
+														style={{ width: '100%' }}
+														min={1}
+														/>
+												</Form.Item>
+
+
 												<Form.Item
 													name="chat_room_summary_cron"
 													label="总结时间(每天)"

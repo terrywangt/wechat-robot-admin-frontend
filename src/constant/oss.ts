@@ -34,3 +34,14 @@ export const CloudflareR2Config = {
 	custom_domain: '',
 	secret_access_key: '',
 };
+
+export const MinIOOSSConfig = {
+	endpoint: '',
+	region: 'us-east-1',
+	access_key_id: '',
+	secret_access_key: '',
+	bucket_name: '',
+	use_ssl: false,
+	base_path: '',
+	custom_domain: '',
+};
